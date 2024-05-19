@@ -15,7 +15,7 @@ def board(data):
                 show[i][j] = "o"
             elif data[i][j] == 3:
                 show[i][j] = "X"
-            elif data[i][j] == 2:
+            elif data[i][j] == 4:
                 show[i][j] = "O"
             else:
                 raise Exception("Error!")
@@ -71,14 +71,13 @@ def move_piece(data, player, current_row, current_col, target_row, target_col):
             if player == 1:
                 mid_row = current_row + 1
                 mid_col = int((current_col + target_col) /2)
-                # print(mid_col,mid_row)
+                print(mid_col,mid_row)
             else:
                 mid_row = current_row - 1
-                # mid_col = current_col - 1
                 mid_col = int((current_col - target_col) /2)
 
             if data[mid_row][mid_col] == (3 - player):
-                if capture_move(data, player, current_row, current_col, target_row, target_col):
+                if is_valid_move(data, player, current_row, current_col, target_row, target_col):
                     data[target_row][target_col] = player
                     data[mid_row][mid_col] = 0
                     data[current_row][current_col] = 0
@@ -89,10 +88,11 @@ def move_piece(data, player, current_row, current_col, target_row, target_col):
 
         elif data[target_row][target_col] == 0 and abs(target_row - current_row) == 1 and abs(target_col - current_col) == 1:
             if is_valid_move(data, player, current_row, current_col, target_row, target_col):
-           # Di chuyển quân cờ
+            # Di chuyển quân cờ
                 data[target_row][target_col] = player
                 data[current_row][current_col] = 0
                 print("Di chuyển thành công!")
+                check_and_update_king(data, player, target_row, target_col)
         else:
             print("Di chuyển không thành công!")
 
@@ -101,32 +101,37 @@ def move_piece(data, player, current_row, current_col, target_row, target_col):
         else:
             p2_count += 1
 
-    elif data[current_row][current_col] == 3 or data[current_row][current_col] == 4:
+    elif data[current_row][current_col] in [3,4]:
         if data[target_row][target_col] == 0 and abs(target_row - current_row) == 2 and abs(target_col - current_col) == 2:
-            if player == 1:
-                mid_row = current_row + 1
-                mid_col = int((current_col + target_col) /2)
-                # print(mid_col,mid_row)
-            else:
-                mid_row = current_row - 1
-                # mid_col = current_col - 1
-                mid_col = int((current_col - target_col) /2)
+            mid_row = (current_row + target_row) // 2
+            mid_col = (current_col + target_col) // 2
+            # print(mid_col,mid_row)
 
-            if data[mid_row][mid_col] == (3 - player):
-                if capture_move(data, player, current_row, current_col, target_row, target_col):
-                    data[target_row][target_col] = player
-                    data[mid_row][mid_col] = 0
-                    data[current_row][current_col] = 0
-                    print("Quân cờ đã ăn quân đối phương!")
+            if data[mid_row][mid_col] == (3 - player) or data[mid_row][mid_col] in [3,4]:
+                if is_valid_king_move(data, player, current_row, current_col, target_row, target_col):
+                    if data[current_row][current_col] == 3:
+                        data[target_row][target_col] = 3
+                        data[mid_row][mid_col] = 0
+                        data[current_row][current_col] = 0
+                        print("Quân cờ đã ăn quân đối phương!")
+                    elif data[current_row][current_col] == 4:
+                        data[target_row][target_col] = 4
+                        data[mid_row][mid_col] = 0
+                        data[current_row][current_col] = 0
+                        print("Quân cờ đã ăn quân đối phương!")
             elif data[mid_row][mid_col] == player:
                 print("Vị trí đích đã có quân cờ!")
 
         elif data[target_row][target_col] == 0 and abs(target_row - current_row) == 1 and abs(target_col - current_col) == 1:
             if is_valid_king_move(data, player, current_row, current_col, target_row, target_col):
-           # Di chuyển quân cờ
-                data[target_row][target_col] = 3
-                data[current_row][current_col] = 0
-                print("Di chuyển thành công!")
+                if data[current_row][current_col] == 3:
+                    data[target_row][target_col] = 3
+                    data[current_row][current_col] = 0
+                    print("Di chuyển thành công!")
+                elif data[current_row][current_col] == 4:
+                    data[target_row][target_col] = 4
+                    data[current_row][current_col] = 0
+                    print("Di chuyển thành công!")
         else:
             print("Di chuyển không thành công!")
 
@@ -145,20 +150,13 @@ def is_valid_move(data, player, current_row, current_col, target_row, target_col
     elif player == 2:  # Nếu là người chơi 2 (quân 'o')
         return (target_row < current_row)
 
-def capture_move(data, player, current_row, current_col, target_row, target_col):
-        # Kiểm tra vị trí chéo thứ 3 và vị trí đích
-    if player == 1:
-        return (target_row > current_row)
-    elif player == 2:
-        return (target_row < current_row)
-
 def check_and_update_king(data, player, target_row, target_col):
     if player == 1 and target_row == 7:  
         data[target_row][target_col] = 3  # Cập nhật thành 'X' (vua)
-        print("Quân 'x' đã được trở thành vua 'X' !")
+        print("Quân 'x' đã được trở thành vua 'xXx' !")
     elif player == 2 and target_row == 0:  
         data[target_row][target_col] = 4  # Cập nhật thành 'O' (vua)
-        print("Quân 'o' đã được trở thành vua 'O' !")
+        print("Quân 'o' đã được trở thành vua 'o0o' !")
 
 def is_valid_king_move(data, player, current_row, current_col, target_row, target_col):
     if player == 1:  
@@ -170,21 +168,32 @@ def check_win(data, player):
     # Đếm số quân cờ của mỗi người chơi
     p1_pieces = sum(row.count(1) for row in data)
     p2_pieces = sum(row.count(2) for row in data)
+    king_p1 = sum(row.count(3) for row in data)
+    king_p2 = sum(row.count(4) for row in data)
     # Nếu một trong hai người chơi không còn quân cờ, trả về True
-    if p1_pieces == 0 or p2_pieces == 0:
+    if (p1_pieces == 0 and king_p1 == 0) or (p2_pieces == 0 and king_p2 == 0):
         return True
     return False
 
 
 data = [
-    [0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1],
+    # [0, 1, 0, 1, 0, 1, 0, 1],
+    # [1, 0, 1, 0, 1, 0, 1, 0],
+    # [0, 1, 0, 1, 0, 1, 0, 1],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [2, 0, 2, 0, 2, 0, 2, 0],
+    # [0, 2, 0, 2, 0, 2, 0, 2],
+    # [2, 0, 2, 0, 2, 0, 2, 0],
+    
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 2, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 0, 2, 0, 2, 0, 2, 0],
-    [0, 2, 0, 2, 0, 2, 0, 2],
-    [2, 0, 2, 0, 2, 0, 2, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 2, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
 print("     ##### Chào mừng tới Cờ đam (Checkers) #####     ")
@@ -193,9 +202,9 @@ print("1.Bạn cần nhập từng hàng, cột của quân cờ")
 print("2.Bạn có thể lựa chọn đầu hàng bằng cách nhập 100 vào ô nhập hàng hiện tại.")
 print("3.Bạn cần phải nhập đúng vị trí và đúng ô cần đến nếu không sẽ bị mất lượt.")
 print("""4.Điều quan trọng phải nhắc lại 3 lần:
-           NHỚ ĐIỀN ĐÚNG Ô
-           NHỚ ĐIỀN ĐÚNG Ô
-           NHỚ ĐIỀN ĐÚNG Ô""")
+            NHỚ ĐIỀN ĐÚNG Ô
+            NHỚ ĐIỀN ĐÚNG Ô
+            NHỚ ĐIỀN ĐÚNG Ô""")
 print("5.Bạn đã nắm rõ được các quy tắc, hãy tận hưởng trò chơi!!")
 print(" ")
 p1_count = 0
@@ -207,10 +216,12 @@ while not check_win(data, player):
     print("  ")
     print(f"Số lượt di chuyển của Người chơi 1: {p1_count}")
     print(f"Số lượt di chuyển của Người chơi 2: {p2_count}")
-    if check_win(data, player):
-        print(f"Player {3 - player} thắng!")
-        sys.exit()
     current_row, current_col, target_row, target_col = get_user_move(player)
     move_piece(data, player, current_row, current_col, target_row, target_col)
+    if check_win(data, player):
+        print(f"Player {player} thắng!")
+        board(data)
+        print("Trò chơi kết thúc!!")
+        sys.exit()
     # Chuyển lượt cho người chơi tiếp theo
     player = 2 if player == 1 else 1

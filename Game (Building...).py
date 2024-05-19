@@ -1,5 +1,4 @@
 # @title Board
-
 from copy import deepcopy
 import sys
 
@@ -14,13 +13,13 @@ def board(data):
             elif data[i][j] == 2:
                 show[i][j] = "o"
             elif data[i][j] == 3:
-                show[i][j] = "X"
+                show[i][j] = "K"
             elif data[i][j] == 4:
-                show[i][j] = "O"
+                show[i][j] = "Q"
             else:
                 raise Exception("Error!")
 
-    print("   Player 1: x                      Player 2: o")
+    print(" Player 1: x | K                 Player 2: o | Q")
     print(" ")
     print(f"|-----|-----|-----|-----|-----|-----|-----|-----|")
     print(f"|  {show[0][0]}  |  {show[0][1]}  |  {show[0][2]}  |  {show[0][3]}  |  {show[0][4]}  |  {show[0][5]}  |  {show[0][6]}  |  {show[0][7]}  |  0  ")
@@ -177,23 +176,23 @@ def check_win(data, player):
 
 
 data = [
-    # [0, 1, 0, 1, 0, 1, 0, 1],
-    # [1, 0, 1, 0, 1, 0, 1, 0],
-    # [0, 1, 0, 1, 0, 1, 0, 1],
-    # [0, 0, 0, 0, 0, 0, 0, 0],
-    # [0, 0, 0, 0, 0, 0, 0, 0],
-    # [2, 0, 2, 0, 2, 0, 2, 0],
-    # [0, 2, 0, 2, 0, 2, 0, 2],
-    # [2, 0, 2, 0, 2, 0, 2, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 0, 2, 0, 2, 0, 2, 0],
+    [0, 2, 0, 2, 0, 2, 0, 2],
+    [2, 0, 2, 0, 2, 0, 2, 0],
     
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 2, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 2, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 2, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 2, 0, 1, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 1, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
 print("     ##### Chào mừng tới Cờ đam (Checkers) #####     ")
@@ -205,7 +204,12 @@ print("""4.Điều quan trọng phải nhắc lại 3 lần:
             NHỚ ĐIỀN ĐÚNG Ô
             NHỚ ĐIỀN ĐÚNG Ô
             NHỚ ĐIỀN ĐÚNG Ô""")
-print("5.Bạn đã nắm rõ được các quy tắc, hãy tận hưởng trò chơi!!")
+print("""5.Nếu bạn điền sai và muốn điền lại thì:
+            i. Nhấn enter vào ô điền trống
+           ii. Nhập đầu vào là số có giá trị lớn hơn 8
+          iii. Nhập vào 1 ký tự bất kì""")
+print("6.Khi quân cờ của người chơi đi đến cuối bàn cờ: quân 'K' là vua của 'x' và 'Q' là vua của 'y;.")
+print("7.Bạn đã nắm rõ được các quy tắc, hãy tận hưởng trò chơi!!")
 print(" ")
 p1_count = 0
 p2_count = 0

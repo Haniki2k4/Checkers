@@ -152,10 +152,10 @@ def is_valid_move(data, player, current_row, current_col, target_row, target_col
 def check_and_update_king(data, player, target_row, target_col):
     if player == 1 and target_row == 7:  
         data[target_row][target_col] = 3  # Cập nhật thành 'X' (vua)
-        print("Quân 'x' đã được trở thành vua 'xXx' !")
+        print("Quân 'x' đã được trở thành vua 'K' !")
     elif player == 2 and target_row == 0:  
         data[target_row][target_col] = 4  # Cập nhật thành 'O' (vua)
-        print("Quân 'o' đã được trở thành vua 'o0o' !")
+        print("Quân 'o' đã được trở thành vua 'Q' !")
 
 def is_valid_king_move(data, player, current_row, current_col, target_row, target_col):
     if player == 1:  
@@ -176,23 +176,23 @@ def check_win(data, player):
 
 
 data = [
-    [0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 0, 2, 0, 2, 0, 2, 0],
-    [0, 2, 0, 2, 0, 2, 0, 2],
-    [2, 0, 2, 0, 2, 0, 2, 0],
+    # [0, 1, 0, 1, 0, 1, 0, 1],
+    # [1, 0, 1, 0, 1, 0, 1, 0],
+    # [0, 1, 0, 1, 0, 1, 0, 1],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [0, 0, 0, 0, 0, 0, 0, 0],
+    # [2, 0, 2, 0, 2, 0, 2, 0],
+    # [0, 2, 0, 2, 0, 2, 0, 2],
+    # [2, 0, 2, 0, 2, 0, 2, 0],
     
-    # [0, 0, 0, 0, 0, 0, 0, 0],
-    # [0, 0, 0, 0, 0, 0, 2, 0],
-    # [0, 0, 0, 0, 0, 0, 0, 0],
-    # [0, 0, 0, 0, 0, 0, 0, 0],
-    # [0, 0, 0, 0, 0, 0, 0, 0],
-    # [0, 0, 2, 0, 1, 0, 0, 0],
-    # [0, 0, 0, 0, 0, 1, 0, 0],
-    # [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 2, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 2, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
 print("     ##### Chào mừng tới Cờ đam (Checkers) #####     ")

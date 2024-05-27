@@ -14,7 +14,7 @@ Welcome to our checkers game project! This is a classic board game implemented i
 - [In process: Customizable board size and piece styles.]
 
 ## Demo
-![ScreenShort](https://imgur.com/a/nPqe1FB)
+![ScreenShort]([https://imgur.com/a/nPqe1FB](https://i.imgur.com/3LmP0hf.png))
 
 ## Usage
 - You need to enter each row and column of the chess piece

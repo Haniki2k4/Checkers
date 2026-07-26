@@ -10,8 +10,6 @@ Welcome to our checkers game project! This is a classic board game implemented i
 ## Features
 - Classic checkers gameplay with standard rules.
 - Two-player mode.
-- [In process: AI opponent for single-player mode.]
-- [In process: Customizable board size and piece styles.]
 
 ## Demo
 ![ScreenShort](https://i.imgur.com/3LmP0hf.png)
